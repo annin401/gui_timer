@@ -9,7 +9,7 @@ class CountDownTimer(QObject):
     def __init__(self):
         super().__init__()
         self.pacemaker = QTimer()
-        self._timer_status = _TimerStatus.SETTING
+        self._timer_status = TimerStatus.SETTING
         self._remaining_time = QTime(0,0,0,0)
         self.__time_zero = QTime(0,0,0,0)
 
@@ -27,22 +27,22 @@ class CountDownTimer(QObject):
 
     def start(self):
         self.pacemaker.start(1000)
-        self._timer_status = _TimerStatus.RUNNING
+        self._timer_status = TimerStatus.RUNNING
 
     def stop(self):
         self.pacemaker.stop()
-        self._timer_status = _TimerStatus.PAUSING
+        self._timer_status = TimerStatus.PAUSING
 
     def _timerUpdate(self):
         if self._remaining_time == self.__time_zero:
             self.pacemaker.stop()
-            self._timer_status = _TimerStatus.FINISHED
+            self._timer_status = TimerStatus.FINISHED
             self.timerFinished.emit()
             return
 
         self._remaining_time = self._remaining_time.addSecs(-1)
 
-class _TimerStatus(Enum):
+class TimerStatus(Enum):
     SETTING = auto()
     RUNNING = auto()
     PAUSING = auto()
