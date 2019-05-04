@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
-from PyQt5.QtCore import(QObject, QTimer, QTime)
+from PyQt5.QtCore import(QObject, QTimer, QTime, pyqtSignal, pyqtBoundSignal)
 
 class CountDownTimer(QObject):
 
+    timerFinished = pyqtSignal() # don't put pyqtSignal in __init__(self)
+
     def __init__(self):
         super().__init__()
+        self.pacemaker = QTimer()
         self._timer_setting_flag = False
         self._remaining_time = QTime(0,0,0,0)
-        self.pacemaker = QTimer()
+        self.__time_zero = QTime(0,0,0,0)
 
         self.pacemaker.timeout.connect(self._timerUpdate)
 
@@ -31,7 +34,13 @@ class CountDownTimer(QObject):
         self.pacemaker.stop()
 
     def _timerUpdate(self):
-        self.remaining_time = self.remaining_time.addSecs(-1)
+        if self._remaining_time == self.__time_zero:
+            self.pacemaker.stop()
+            self._timer_setting_flag = False
+            self.timerFinished.emit()
+            return
+
+        self._remaining_time = self._remaining_time.addSecs(-1)
 
 # for debug
 #
@@ -40,9 +49,12 @@ class CountDownTimer(QObject):
 #     import sys
 #     def ppprint():
 #         print(timer.getRemainingTime().toString("hh:mm:ss"))
+#     def printF():
+#         print("Finish")
 #     app = QApplication(sys.argv)
 #     timer = CountDownTimer()
 #     timer.setTime()
 #     timer.pacemaker.timeout.connect(ppprint)
 #     timer.start()
+#     timer.timerFinished.connect(printF)
 #     sys.exit(app.exec_())
