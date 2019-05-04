@@ -2,7 +2,6 @@
 import sys
 from PyQt5.QtWidgets import (QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QHBoxLayout)
 from PyQt5.QtGui import (QIcon, QFont)
-from PyQt5.QtCore import(QTime)
 
 class MainWindow(QWidget):
 
@@ -27,7 +26,9 @@ class MainWindow(QWidget):
 
         # Create buttons
         self.btnR = QPushButton("Start", self)
-        self.btnL = QPushButton("Cancel", self)
+        self.btnL = QPushButton("Set", self)
+        self.btnR.setFixedSize(70, 30)
+        self.btnL.setFixedSize(70, 30)
 
         # Create Label for display
         self.remaining_time = "00:00:00"
