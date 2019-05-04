@@ -64,6 +64,7 @@ class MainWindow(QWidget):
         self.btnL.clicked.connect(self.btnClickedEvent)
         self.cdTimer.pacemaker.timeout.connect(self.updateLabel)
         self.cdTimer.timerFinished.connect(self.musicPlay)
+        self.cdTimer.timerFinished.connect(self.toggle_To_FINISHED_Button)
 
    def btnClickedEvent(self):
         sender = self.sender()
