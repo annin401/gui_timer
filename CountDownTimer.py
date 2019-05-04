@@ -33,6 +33,10 @@ class CountDownTimer(QObject):
         self.pacemaker.stop()
         self._timer_status = TimerStatus.PAUSING
 
+    def reset(self):
+        self._remaining_time.setHMS(0,0,0,0)
+        self._timer_status = TimerStatus.SETTING
+
     def _timerUpdate(self):
         if self._remaining_time == self.__time_zero:
             self.pacemaker.stop()
