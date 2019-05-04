@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 from PyQt5.QtWidgets import (QWidget, QPushButton, QLabel, QTimeEdit, QHBoxLayout, QVBoxLayout)
-
+from PyQt5.QtCore import (QTime, pyqtSignal)
 class InputWindow(QWidget):
+
+    valueChanged = pyqtSignal(QTime)
 
     def __init__(self):
         super().__init__()
 
+        self.time = QTime(0,0,0,0)
+
         self.createUI()
+        self.connectSignal()
 
     def createUI(self):
          # This function don't call 'self.show()'
@@ -69,6 +74,27 @@ class InputWindow(QWidget):
         vbox.addLayout(hbox)
 
         self.setLayout(vbox)
+
+    def connectSignal(self):
+        self.time_edit.timeChanged.connect(self.changeTime)
+        self.btnR.clicked.connect(self.btnClickedEvent)
+        self.btnL.clicked.connect(self.btnClickedEvent)
+
+    def changeTime(self, t):
+        self.time = t
+
+    def btnClickedEvent(self):
+        sender = self.sender()
+
+        if sender is self.btnR:
+            # Detamine
+            self.valueChanged.emit(self.time)
+
+        elif sender is self.btnL:
+            # Cansel
+            pass
+
+        self.close()
 
 # for debug
 #
