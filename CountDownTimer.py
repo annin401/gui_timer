@@ -9,14 +9,14 @@ class CountDownTimer(QObject):
     def __init__(self):
         super().__init__()
         self.pacemaker = QTimer()
-        self._timer_statu = _TimerStatu.SETTING
+        self._timer_status = _TimerStatus.SETTING
         self._remaining_time = QTime(0,0,0,0)
         self.__time_zero = QTime(0,0,0,0)
 
         self.pacemaker.timeout.connect(self._timerUpdate)
 
-    def getTimerStatu(self):
-        return self._timer_statu
+    def getTimerStatus(self):
+        return self._timer_status
 
     def getRemainingTime(self):
         return self._remaining_time
@@ -27,22 +27,22 @@ class CountDownTimer(QObject):
 
     def start(self):
         self.pacemaker.start(1000)
-        self._timer_statu = _TimerStatu.RUNNING
+        self._timer_status = _TimerStatus.RUNNING
 
     def stop(self):
         self.pacemaker.stop()
-        self._timer_statu = _TimerStatu.PAUSING
+        self._timer_status = _TimerStatus.PAUSING
 
     def _timerUpdate(self):
         if self._remaining_time == self.__time_zero:
             self.pacemaker.stop()
-            self._timer_statu = _TimerStatu.FINISHED
+            self._timer_status = _TimerStatus.FINISHED
             self.timerFinished.emit()
             return
 
         self._remaining_time = self._remaining_time.addSecs(-1)
 
-class _TimerStatu(Enum):
+class _TimerStatus(Enum):
     SETTING = auto()
     RUNNING = auto()
     PAUSING = auto()
@@ -55,7 +55,7 @@ class _TimerStatu(Enum):
 #     import sys
 #     def ppprint():
 #         print(timer.getRemainingTime().toString("hh:mm:ss"))
-#         print(timer.getTimerStatu())
+#         print(timer.getTimerStatus())
 #     def printF():
 #         print("Finish")
 #     app = QApplication(sys.argv)
