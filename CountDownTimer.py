@@ -21,9 +21,8 @@ class CountDownTimer(QObject):
     def getRemainingTime(self):
         return self._remaining_time
 
-    def setTime(self):
-        # TODO 引数でQtime型を受け取り，remaining timeに入れる
-        self._remaining_time.setHMS(0,0,9,0)
+    def setTime(self, time: QTime):
+        self._remaining_time = time
 
     def start(self):
         self.pacemaker.start(1000)

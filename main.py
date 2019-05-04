@@ -3,6 +3,7 @@ import sys
 from PyQt5.QtWidgets import (QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QHBoxLayout)
 from PyQt5.QtGui import (QIcon, QFont)
 from CountDownTimer import (CountDownTimer, TimerStatus)
+from InputWindow import (InputWindow)
 
 class MainWindow(QWidget):
 
@@ -10,6 +11,7 @@ class MainWindow(QWidget):
         super().__init__()
 
         self.cdTimer = CountDownTimer()
+        self.subWindow = InputWindow()
 
         self.createUI()
         self.connectSignal()
@@ -33,8 +35,17 @@ class MainWindow(QWidget):
         self.btnL = QPushButton("Set", self)
         self.btnR.setFixedSize(70, 30)
         self.btnL.setFixedSize(70, 30)
+        btn_style = '''
+            QPushBotton{
+                font-color: #FAFAFA;
+                font-family: Times;
+            }
+            '''
+        self.btnR.setStyleSheet(btn_style)
+        self.btnL.setStyleSheet(btn_style)
+        
 
-        # Create Label for display
+        # Create Label as display
         self.__remaining_time = self.cdTimer.getRemainingTime().toString("hh:mm:ss")
         self.lbl = QLabel(self.__remaining_time, self) 
         lbl_style = '''
@@ -96,9 +107,9 @@ class MainWindow(QWidget):
 
             if timerStatus == TimerStatus.SETTING:
                 # Set
-                pass # TODO
-                self.cdTimer.setTime() # かり
-                self.updateLabel()
+                self.makeWindow()
+                self.subWindow.valueChanged.connect(self.cdTimer.setTime)
+                self.subWindow.valueChanged.connect(self.updateLabel)
 
             elif timerStatus == TimerStatus.PAUSING:    
                 # Reset
@@ -126,6 +137,9 @@ class MainWindow(QWidget):
        self.__remaining_time = self.cdTimer.getRemainingTime().toString("hh:mm:ss")
        self.lbl.setText(self.__remaining_time)
 
+
+   def makeWindow(self):
+       self.subWindow.show()
 
    def musicPlay(self):
         pass # TODO
