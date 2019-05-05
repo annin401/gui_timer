@@ -22,8 +22,8 @@ class MainWindow(QWidget):
         # This function don't call 'self.show()'
 
         # MainWindow setting
-        self.setGeometry(300, 300, 400, 270)
-        self.setFixedSize(400, 270)
+        self.setGeometry(300, 300,440, 270)
+        self.setFixedSize(440, 270)
         self.setWindowTitle('Timer')
         window_style = '''
             MainWindow{
@@ -35,10 +35,11 @@ class MainWindow(QWidget):
         # Create buttons
         self.btnR = QPushButton("Start", self)
         self.btnL = QPushButton("Set", self)
-        self.btnR.setFixedSize(70, 30)
-        self.btnL.setFixedSize(70, 30)
+        self.btnR.setFixedSize(100, 50)
+        self.btnL.setFixedSize(100, 50)
         btn_style = '''
             QPushBotton{
+                font-size: 40px
                 font-color: #FAFAFA;
                 font-family: Times;
             }
@@ -52,10 +53,10 @@ class MainWindow(QWidget):
         self.lbl = QLabel(self.__remaining_time, self) 
         lbl_style = '''
             QLabel{
-                font-size: 90px; 
+                font-size: 99px;
                 color: #FAFAFA;
                 font-family: Times;
-                margin: 0px 0px 4px 0px;
+                margin: opx 0px 2px 0px;
             }
             '''
         self.lbl.setStyleSheet(lbl_style)
