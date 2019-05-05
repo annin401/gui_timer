@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import (QApplication, QWidget, QPushButton, QLabel, QVBoxLa
 from PyQt5.QtGui import (QIcon, QFont)
 from CountDownTimer import (CountDownTimer, TimerStatus)
 from InputWindow import (InputWindow)
+from SoundPlayer import (SoundPlayer)
 
 class MainWindow(QWidget):
 
@@ -12,6 +13,7 @@ class MainWindow(QWidget):
 
         self.cdTimer = CountDownTimer()
         self.subWindow = InputWindow()
+        self.soundPlayer = SoundPlayer()
 
         self.createUI()
         self.connectSignal()
@@ -73,8 +75,10 @@ class MainWindow(QWidget):
    def connectSignal(self):
         self.btnR.clicked.connect(self.btnClickedEvent)
         self.btnL.clicked.connect(self.btnClickedEvent)
+
         self.cdTimer.pacemaker.timeout.connect(self.updateLabel)
-        self.cdTimer.timerFinished.connect(self.musicPlay)
+
+        self.cdTimer.timerFinished.connect(self.soundPlayer.play)
         self.cdTimer.timerFinished.connect(self.toggle_To_FINISHED_Button)
 
    def btnClickedEvent(self):
@@ -100,6 +104,7 @@ class MainWindow(QWidget):
 
             elif timerStatus == TimerStatus.FINISHED:
                 # Stop
+                self.soundPlayer.stop()
                 self.cdTimer.reset()
                 self.toggle_To_SETTING_Button()
                 
@@ -140,9 +145,6 @@ class MainWindow(QWidget):
 
    def makeWindow(self):
        self.subWindow.show()
-
-   def musicPlay(self):
-        pass # TODO
 
 
 if __name__ == '__main__':

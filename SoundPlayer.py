@@ -11,7 +11,7 @@ class SoundPlayer():
         pygame.mixer.music.load(self.filename)
         pygame.mixer.music.set_volume(1.0)
         
-    def start(self):
+    def play(self):
         pygame.mixer.music.play(self.__play_music_times)
 
     def stop(self):
