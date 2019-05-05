@@ -101,8 +101,11 @@ class InputWindow(QWidget):
 # if __name__ == '__main__':
 #     from PyQt5.QtWidgets import QApplication
 #     import sys
+#     def ppprint(t):
+#         print(t)
 
 #     app = QApplication(sys.argv)
 #     window = InputWindow()
+#     window.valueChanged.connect(ppprint)
 #     window.show()
 #     sys.exit(app.exec_())
