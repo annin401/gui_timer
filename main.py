@@ -25,9 +25,10 @@ class MainWindow(QWidget):
         self.setGeometry(300, 300,440, 270)
         self.setFixedSize(440, 270)
         self.setWindowTitle('Timer')
+        self.setWindowIcon(QIcon('Resources/kitchen_timer.png'))
         window_style = '''
             MainWindow{
-                background-color: #151515;
+                background-color: #48DA04;
             }
             '''
         self.setStyleSheet(window_style)
@@ -35,13 +36,13 @@ class MainWindow(QWidget):
         # Create buttons
         self.btnR = QPushButton("Start", self)
         self.btnL = QPushButton("Set", self)
-        self.btnR.setFixedSize(100, 50)
-        self.btnL.setFixedSize(100, 50)
+        self.btnR.setFixedSize(90, 20)
+        self.btnL.setFixedSize(90, 20)
         btn_style = '''
-            QPushBotton{
-                font-size: 40px
-                font-color: #FAFAFA;
+            QPushButton{
+                color: #090909;
                 font-family: Times;
+                background-color: #FAED02;
             }
             '''
         self.btnR.setStyleSheet(btn_style)
@@ -54,8 +55,8 @@ class MainWindow(QWidget):
         lbl_style = '''
             QLabel{
                 font-size: 99px;
-                color: #FAFAFA;
                 font-family: Times;
+                background-color: #0B610B;
                 margin: opx 0px 2px 0px;
             }
             '''

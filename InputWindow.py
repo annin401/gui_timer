@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from PyQt5.QtWidgets import (QWidget, QPushButton, QLabel, QTimeEdit, QHBoxLayout, QVBoxLayout)
 from PyQt5.QtCore import (QTime, pyqtSignal)
+from PyQt5.QtGui import (QIcon)
 class InputWindow(QWidget):
 
     valueChanged = pyqtSignal(QTime)
@@ -20,9 +21,10 @@ class InputWindow(QWidget):
         self.setGeometry(300, 300, 230, 130)
         self.setFixedSize(230, 130)
         self.setWindowTitle('InputWindow')
+        self.setWindowIcon(QIcon('Resources/kitchen_timer.png'))
         window_style = '''
             InputWindow{
-                background-color: #151515;
+                background-color: #48DA04;
             }
             '''
         self.setStyleSheet(window_style)
@@ -31,8 +33,8 @@ class InputWindow(QWidget):
         self.lbl = QLabel("Plase set the time")  
         lbl_style = '''
             QLabel{
-                font-size: 18px; 
-                color: #FAFAFA;
+                font-size: 20px; 
+                color: #FFFFFF;
                 font-family: Times;
             }
             '''
@@ -51,12 +53,13 @@ class InputWindow(QWidget):
         # create Botton
         self.btnR = QPushButton("Determine", self)
         self.btnL = QPushButton("Cansel", self)
-        self.btnR.setFixedSize(90, 30)
-        self.btnL.setFixedSize(90, 30)
+        self.btnR.setFixedSize(90, 20)
+        self.btnL.setFixedSize(90, 20)
         btn_style = '''
-            QPushBotton{
-                font-color: #FAFAFA;
+            QPushButton{
+                color: #090909;
                 font-family: Times;
+                background-color: #FAED02;
             }
             '''
         self.btnR.setStyleSheet(btn_style)
